@@ -1,0 +1,12 @@
+.groups{
+    width:350px;
+    display: inline-table;
+    height:100px;
+    margin-left: 300px;
+    border: 4px;
+    border-radius: 5px;
+    background-color: grey;
+    margin-top: 10px;
+    align-items: center;
+    
+}
