@@ -4,7 +4,7 @@ class ListGroups extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            dummmy:[]
+           chartdata:[]
         };
     }
     render(){
@@ -12,7 +12,7 @@ class ListGroups extends React.Component {
          <div>
           <h1>THis is working </h1>
               {
-                  this.props.data.map(item=>{
+                  this.props.data && this.props.data.map(item=>{
                       return(
                           <Group
                              key={item._id}

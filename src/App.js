@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import ListGroups from './Components/ListGroups';
 import './App.css';
-let API_KEY = '23f0c20257f488a933cf3d70c2887e3b';
+import Chart from './Components/Chart.js';
+let API_KEY = 'ec5ed7f7ffca85d7347031e853bf38eb';
+function generateColor(){
+    var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+    return  hue;
+}
 
 class App extends Component {
    constructor(props){
@@ -10,7 +15,9 @@ class App extends Component {
        this.state={
            response:[],
            total:'',
-           group:''
+           group:'',
+           error:'false',
+           chartData:{},
        }
    }
    onChangeGroup =(event)=>{
@@ -36,7 +43,7 @@ class App extends Component {
        const result = await api_call.json();
        console.log('result',result);
        this.setState({
-           response:result.groups.group.map(item=>({
+           response:result && result.groups && result.groups.group && result.groups.group.map(item=>({
                name:item.name,
                members:item.members,
                _id:item.nsid,
@@ -44,12 +51,49 @@ class App extends Component {
                iconserver:item.iconserver,
                topic_count:item.topic_count
            }))
+
        });
+       let labelData=[];
+       let datainarray=[];
+       let backgroundColor=[
+                     'rgba(255,105,145,0.6)',
+                     'rgba(155,100,210,0.6)',
+                     'rgba(90,178,255,0.6)',
+                     'rgba(240,134,67,0.6)',
+                     'rgba(120,120,120,0.6)',
+                 ];
+       for(let i=0;i<5;i++){
+           let item=result.groups.group[i];
+           labelData.push(item.name);
+            datainarray.push(item.pool_count);
+            backgroundColor.push(generateColor());
+       }
+
+
+
+
+
+       this.setState({
+      chartData:{
+        labels: labelData,
+        datasets:[
+          {
+            label:'Population',
+            data:datainarray,
+            backgroundColor:backgroundColor
+          }
+        ]
+      }
+    });
    }
   render() {
+      //console.log('hue',hue);
       console.log('response',this.state.response);
+      console.log('chartData',this.state.chartData);
     return (
+ <div >
       <div className="App">
+
           <h1>Flickr Clone </h1>
           <form   onSubmit ={this.onSubmit }>
 
@@ -77,9 +121,9 @@ class App extends Component {
 
                 </div>
             </form>
-            <ListGroups data={this.state.response}/>
-
-
+            <ListGroups data={this.state.response} chartData={this.state.chartData}/>
+      </div>
+       <Chart data={this.state.chartData}/>
       </div>
     );
   }

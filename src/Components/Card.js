@@ -24,10 +24,16 @@ class Card extends React.Component{
         }
     }
     render(){
-
+        console.log('jagga',this.props.data);
+        const {title,ownername,uri}=this.props.data;
         return(
             <div className="images" ref={this.saveContainerRef}>
-             <img src={this.props.data}/>
+             <div className="image-conatiner">
+                   <h6>{ownername} </h6>
+                    <h6>{title} </h6>
+             </div>    
+                   <img src={uri}/>
+
             </div>
         )
     }

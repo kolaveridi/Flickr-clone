@@ -10,7 +10,7 @@ import {
   withRouter
 } from 'react-router-dom'
 import GroupStyle from'./GroupStyle.css';
-let API_KEY = '23f0c20257f488a933cf3d70c2887e3b';
+
 class Group extends React.Component{
     onClick=(id)=>{
         this.props.history.push({

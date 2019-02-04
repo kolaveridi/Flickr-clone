@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom'
 import queryString from 'query-string';
 import Card from './Card.js';
-let API_KEY = '23f0c20257f488a933cf3d70c2887e3b';
+let API_KEY = '55bfaeff9b5751f62cee707a21d7c14a';
 class Gallery extends React.Component{
     constructor(props){
         super(props);
@@ -39,7 +39,14 @@ class Gallery extends React.Component{
          for(let i=0;i<result.photos.photo.length;i++){
              var photo=result.photos.photo[i];
              let uri = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
-             data=[...data,uri];
+             let  title=photo.title;
+             let  ownername=photo.ownername;
+             let obj={
+                 title,
+                 uri,
+                 ownername
+             };
+             data=[...data,obj];
          }
          this.setState({
             images:data

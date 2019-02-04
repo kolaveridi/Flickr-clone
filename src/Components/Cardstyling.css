@@ -1,5 +1,12 @@
 .images{
     display: inline-block;
-    width:300px;
+    width:200px;
+    align-items: center;
+    margin-left: 10px;
 
+
+}
+.image-container{
+    padding: 10px;
+    
 }
